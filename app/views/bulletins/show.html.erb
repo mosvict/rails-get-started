@@ -12,3 +12,13 @@
 
 <%= link_to 'Edit', edit_bulletin_path(@bulletin) %> |
 <%= link_to 'Back', bulletins_path %>
+
+<%= form_for bulletin_comments_path(@bulletin.id) do |f| %>
+<%= f.text_field :body, placeholder: "Reply Comment" %>
+<%= f.submit('Reply', style: 'margin-left: 10px') %>
+<% end %>
+
+<div style="margin-top:40px;"></div>
+<% Bulletin.find(@bulletin.id).comments.each do |comment| %>
+<%= comment.body %><%= link_to "Delete", bulletin_comment_path(@bulletin.id, comment.id), method: :delete, data: { confirm: 'Do you want to delete?'} %><hr/>
+<% end %>
